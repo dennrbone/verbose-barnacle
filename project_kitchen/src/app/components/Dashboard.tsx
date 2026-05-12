@@ -1,42 +1,43 @@
-import { Camera, ChefHat } from 'lucide-react';
+import { Camera, ChefHat, Type } from 'lucide-react';
 
 interface DashboardProps {
-  onNavigateToCamera: () => void;
+  onNavigateToScanner: () => void;
+  onNavigateToRecipes: () => void;
 }
 
-export function Dashboard({ onNavigateToCamera }: DashboardProps) {
+export function Dashboard({ onNavigateToScanner, onNavigateToRecipes }: DashboardProps) {
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-secondary to-white pb-20">
-      {/* Header */}
-      <div className="px-6 pt-8 pb-6">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center">
-            <ChefHat className="w-7 h-7 text-white" />
+    <div className="flex-1 flex flex-col items-center justify-center p-6">
+      <div className="w-full max-w-md space-y-8">
+        {/* Logo and Title */}
+        <div className="text-center space-y-4">
+          <div className="w-24 h-24 rounded-3xl bg-primary mx-auto flex items-center justify-center">
+            <ChefHat className="w-12 h-12 text-white" />
           </div>
-          <div>
-            <h1 className="text-2xl">Kitchen AI</h1>
-            <p className="text-sm text-muted-foreground">Smart food management</p>
-          </div>
+          <h1 className="text-3xl font-bold">Kitchen AI</h1>
+          <p className="text-muted-foreground">
+            Найдите рецепты по продуктам из вашего холодильника
+          </p>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="flex-1 px-6">
-        {/* Scan Button */}
-        <button
-          onClick={onNavigateToCamera}
-          className="w-full bg-primary text-primary-foreground rounded-3xl p-8 shadow-lg active:scale-95 transition-transform"
-        >
-          <div className="flex flex-col items-center gap-3">
-            <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center">
-              <Camera className="w-10 h-10" />
-            </div>
-            <h2 className="text-2xl">Scan Products</h2>
-            <p className="text-sm text-primary-foreground/80">
-              Take a photo to detect items
-            </p>
-          </div>
-        </button>
+        {/* Action Buttons */}
+        <div className="space-y-4">
+          <button
+            onClick={onNavigateToScanner}
+            className="w-full bg-primary text-white rounded-3xl p-6 flex items-center justify-center gap-3 active:scale-95 transition-transform"
+          >
+            <Camera className="w-6 h-6" />
+            <span className="text-lg font-medium">Определить продукты по фото</span>
+          </button>
+          
+          <button
+            onClick={onNavigateToRecipes}
+            className="w-full bg-secondary text-foreground rounded-3xl p-6 flex items-center justify-center gap-3 active:scale-95 transition-transform"
+          >
+            <Type className="w-6 h-6" />
+            <span className="text-lg font-medium">Ввести продукты вручную</span>
+          </button>
+        </div>
       </div>
     </div>
   );

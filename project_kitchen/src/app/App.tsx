@@ -1,56 +1,68 @@
 import { useState } from 'react';
 import { Dashboard } from './components/Dashboard';
-import { CameraInterface } from './components/CameraInterface';
-import { InventoryList } from './components/InventoryList';
-import { RecipeGeneration } from './components/RecipeGeneration';
-import { RecipeResults } from './components/RecipeResults';
+import { ProductScanner } from './components/ProductScanner';
+import { RecipeGenerator } from './components/RecipeGenerator';
 import { BottomNav } from './components/BottomNav';
 
-type Screen = 'dashboard' | 'camera' | 'inventory' | 'recipeGen' | 'recipeResults';
+type Screen = 'dashboard' | 'scanner' | 'recipes';
+
+interface DetectedProduct {
+  id: string;
+  name: string;
+  confidence?: number;
+  image?: string;
+}
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>('dashboard');
+  const [detectedProducts, setDetectedProducts] = useState<DetectedProduct[]>([]);
+  const [textIngredients, setTextIngredients] = useState<string>('');
 
-  const handleScanCapture = (items: string[]) => {
-    setScreen('inventory');
+  const handleProductsDetected = (products: DetectedProduct[]) => {
+    setDetectedProducts(products);
   };
 
   const renderContent = () => {
     switch (screen) {
-      case 'camera':
+      case 'scanner':
         return (
-          <CameraInterface
+          <ProductScanner
             onBack={() => setScreen('dashboard')}
-            onCapture={handleScanCapture}
+            onProductsDetected={handleProductsDetected}
+            onNavigateToRecipes={() => setScreen('recipes')}
           />
         );
-      case 'inventory':
+      case 'recipes':
         return (
-          <InventoryList
-            onNavigateToRecipes={() => setScreen('recipeGen')}
+          <RecipeGenerator
+            onBack={() => setScreen('dashboard')}
+            detectedProducts={detectedProducts}
+            textIngredients={textIngredients}
+            onTextIngredientsChange={setTextIngredients}
           />
         );
-      case 'recipeGen':
-        return (
-          <RecipeGeneration
-            onGenerateRecipes={() => setScreen('recipeResults')}
-          />
-        );
-      case 'recipeResults':
-        return <RecipeResults />;
-      default:
+      case 'dashboard':
         return (
           <Dashboard
-            onNavigateToCamera={() => setScreen('camera')}
+            onNavigateToScanner={() => {
+              setDetectedProducts([]);
+              setScreen('scanner');
+            }}
+            onNavigateToRecipes={() => {
+              setDetectedProducts([]);
+              setScreen('recipes');
+            }}
           />
         );
+      default:
+        return null;
     }
   };
 
   return (
     <div className="relative w-full h-full max-w-md mx-auto bg-white">
       {renderContent()}
-      {screen !== 'camera' && (
+      {screen !== 'scanner' && (
         <BottomNav
           activeTab="home"
           onTabChange={() => setScreen('dashboard')}
