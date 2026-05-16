@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'AI Kitchen Assistant',
   webDir: 'dist',
   server: {
-    androidScheme: 'https',
+    androidScheme: 'http',
   },
 }
 
