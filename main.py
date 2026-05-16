@@ -11,7 +11,7 @@ app = FastAPI(title="Recipe Generator API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -77,6 +77,7 @@ async def generate_recipe(
             response = client.chat(Chat(messages=messages, model="GigaChat-Max")) 
             raw_text = response.choices[0].message.content.strip()
             
+            # Удаляем markdown-обёртку, если GigaChat её добавил
             if raw_text.startswith("```"):
                 raw_text = re.sub(r'^```[a-zA-Z]*\n|```$', '', raw_text, flags=re.MULTILINE).strip()
             
