@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { Dashboard } from './components/Dashboard';
-import { ProductScanner } from './components/ProductScanner';
 import { RecipeGenerator } from './components/RecipeGenerator';
 import { BottomNav } from './components/BottomNav';
 
-type Screen = 'dashboard' | 'scanner' | 'recipes';
+type Screen = 'dashboard' | 'recipes';
 
 interface DetectedProduct {
   id: string;
@@ -18,20 +17,8 @@ export default function App() {
   const [detectedProducts, setDetectedProducts] = useState<DetectedProduct[]>([]);
   const [textIngredients, setTextIngredients] = useState<string>('');
 
-  const handleProductsDetected = (products: DetectedProduct[]) => {
-    setDetectedProducts(products);
-  };
-
   const renderContent = () => {
     switch (screen) {
-      case 'scanner':
-        return (
-          <ProductScanner
-            onBack={() => setScreen('dashboard')}
-            onProductsDetected={handleProductsDetected}
-            onNavigateToRecipes={() => setScreen('recipes')}
-          />
-        );
       case 'recipes':
         return (
           <RecipeGenerator
@@ -42,32 +29,26 @@ export default function App() {
           />
         );
       case 'dashboard':
+      default:
         return (
           <Dashboard
-            onNavigateToScanner={() => {
-              setDetectedProducts([]);
-              setScreen('scanner');
-            }}
             onNavigateToRecipes={() => {
               setDetectedProducts([]);
               setScreen('recipes');
             }}
           />
         );
-      default:
-        return null;
     }
   };
 
   return (
     <div className="relative w-full h-full max-w-md mx-auto bg-white">
       {renderContent()}
-      {screen !== 'scanner' && (
-        <BottomNav
-          activeTab="home"
-          onTabChange={() => setScreen('dashboard')}
-        />
-      )}
+      {}
+      <BottomNav
+        activeTab="home"
+        onTabChange={() => setScreen('dashboard')}
+      />
     </div>
   );
 }

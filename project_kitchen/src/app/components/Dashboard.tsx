@@ -1,11 +1,10 @@
-import { Camera, ChefHat, Type, ShoppingBasket } from 'lucide-react';
+import { ChefHat, ShoppingBasket } from 'lucide-react';
 
 interface DashboardProps {
-  onNavigateToScanner: () => void;
   onNavigateToRecipes: () => void;
 }
 
-export function Dashboard({ onNavigateToScanner, onNavigateToRecipes }: DashboardProps) {
+export function Dashboard({ onNavigateToRecipes }: DashboardProps) {
   return (
     <div className="flex-1 flex flex-col items-center justify-center p-6">
       <div className="w-full max-w-md space-y-8">

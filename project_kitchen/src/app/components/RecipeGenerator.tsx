@@ -1,4 +1,4 @@
-import { ArrowLeft, ChefHat, Clock, Users, Sparkles, Image as ImageIcon, Loader2, Plus, Trash2 } from 'lucide-react';
+import { ArrowLeft, ChefHat, Clock, Users, Sparkles, Image as ImageIcon, Loader2, Plus, Trash2, Camera } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 interface DetectedProduct {
@@ -308,19 +308,41 @@ export function RecipeGenerator({
       </div>
 
       <div className="flex-1 p-6 space-y-6">
+        {/* 📸 Фото продуктов - ГАЛЕРЕЯ + КАМЕРА */}
         <div className="bg-white rounded-2xl p-4">
           <h3 className="font-semibold mb-3">📸 Фото продуктов</h3>
           <div className="flex items-center gap-3">
-            <label className="cursor-pointer bg-gray-100 hover:bg-gray-200 rounded-xl p-3 transition">
+            {/* Кнопка ГАЛЕРЕЯ */}
+            <label className="cursor-pointer bg-gray-100 hover:bg-gray-200 rounded-xl p-3 transition flex flex-col items-center gap-1">
               <ImageIcon className="w-6 h-6 text-gray-600" />
-              <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+              <span className="text-[10px] text-gray-500">Галерея</span>
+              <input 
+                type="file" 
+                accept="image/*" 
+                onChange={handleImageUpload} 
+                className="hidden" 
+              />
             </label>
+
+            {/* Кнопка КАМЕРА */}
+            <label className="cursor-pointer bg-gray-100 hover:bg-gray-200 rounded-xl p-3 transition flex flex-col items-center gap-1">
+              <Camera className="w-6 h-6 text-gray-600" />
+              <span className="text-[10px] text-gray-500">Камера</span>
+              <input 
+                type="file" 
+                accept="image/*" 
+                capture="environment"
+                onChange={handleImageUpload} 
+                className="hidden" 
+              />
+            </label>
+
             {imagePreview && (
-              <div className="relative">
+              <div className="relative ml-2">
                 <img src={imagePreview} alt="Preview" className="w-16 h-16 object-cover rounded-lg" />
                 <button
                   onClick={() => { setSelectedImage(null); setImagePreview(null); }}
-                  className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 text-xs"
+                  className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center"
                 >
                   ×
                 </button>
