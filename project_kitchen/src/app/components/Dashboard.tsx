@@ -1,4 +1,4 @@
-import { Camera, ChefHat, Type } from 'lucide-react';
+import { Camera, ChefHat, Type, ShoppingBasket } from 'lucide-react';
 
 interface DashboardProps {
   onNavigateToScanner: () => void;
@@ -23,19 +23,11 @@ export function Dashboard({ onNavigateToScanner, onNavigateToRecipes }: Dashboar
         {/* Action Buttons */}
         <div className="space-y-4">
           <button
-            onClick={onNavigateToScanner}
+            onClick={onNavigateToRecipes}
             className="w-full bg-primary text-white rounded-3xl p-6 flex items-center justify-center gap-3 active:scale-95 transition-transform"
           >
-            <Camera className="w-6 h-6" />
-            <span className="text-lg font-medium">Определить продукты по фото</span>
-          </button>
-          
-          <button
-            onClick={onNavigateToRecipes}
-            className="w-full bg-secondary text-foreground rounded-3xl p-6 flex items-center justify-center gap-3 active:scale-95 transition-transform"
-          >
-            <Type className="w-6 h-6" />
-            <span className="text-lg font-medium">Ввести продукты вручную</span>
+            <ShoppingBasket className="w-12 h-12" />
+            <span className="text-lg font-medium">Ввести продукты вручную или определить по фото</span>
           </button>
         </div>
       </div>
