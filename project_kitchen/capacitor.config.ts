@@ -5,7 +5,19 @@ const config: CapacitorConfig = {
   appName: 'AI Kitchen Assistant',
   webDir: 'dist',
   server: {
-    androidScheme: 'http',
+    androidScheme: 'https',
+    
+  
+    allowNavigation: [
+      'nhtdlf-188-232-145-9.ru.tuna.am',
+      '*.tuna.am',  
+    ],
+  },
+  plugins: {
+
+    CapacitorHttp: {
+      enabled: true,
+    },
   },
 }
 

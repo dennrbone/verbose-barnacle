@@ -27,15 +27,16 @@ interface RecipeGeneratorProps {
   onTextIngredientsChange: (value: string) => void;
 }
 
-// ============================================
-// 🔧 КОНФИГУРАЦИЯ - ИЗМЕНИТЕ IP ВАШЕГО ПК
-// ============================================
+
 const API_CONFIG = {
-  PC_IP: '192.168.0.110',  // <----- ВАШ IP
-  PORT: 8000,
+
+  PC_IP: 'recipeapidomen.ru.tuna.am',
+  
+
+  PORT: 443,
   
   get baseUrl() {
-    return `http://${this.PC_IP}:${this.PORT}`;
+    return `https://${this.PC_IP}`;
   },
   
   get recipeEndpoint() {
@@ -43,9 +44,7 @@ const API_CONFIG = {
   }
 };
 
-// ============================================
-// 🍽️ API СЕРВИС - РЕАЛЬНЫЕ ЗАПРОСЫ К ВАШЕМУ FASTAPI
-// ============================================
+
 class RecipeApiService {
   static async checkConnection(): Promise<boolean> {
     try {
